@@ -1,0 +1,39 @@
+/* src/App.css */
+.preview {
+	padding: 20px;
+	overflow: auto;
+}
+
+.slides {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px;
+}
+
+html,
+body,
+#root {
+	max-height: 100%;
+	max-width: 100%;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+
+	margin: 0;
+
+	font:
+		14px "Helvetica Neue",
+		Helvetica,
+		Arial,
+		sans-serif;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+}
+
+.flexlayout__tab {
+	overflow: hidden;
+}
