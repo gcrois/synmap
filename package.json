@@ -44,8 +44,9 @@
 		"eslint-plugin-react-refresh": "^0.4.6",
 		"sass": "^1.77.1",
 		"tree-sitter-cli": "^0.22.6",
+		"tree-sitter-hazel": "github:hazelgrove/tree-sitter-hazel#llama-grammar",
 		"tree-sitter-typescript": "^0.21.2",
-    "tree-sitter-hazel": "github:hazelgrove/tree-sitter-hazel#llama-grammar",
+    "tree-sitter-python": "^0.21.0",
 		"typescript": "^5.2.2",
 		"vite": "^5.2.0"
 	}

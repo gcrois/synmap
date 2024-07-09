@@ -9,6 +9,7 @@ const parser = new Promise<Parser>((resolve) => {
 
         languages.set("typescript", Parser.Language.load("tree-sitter-typescript.wasm"));
         languages.set("hazel", Parser.Language.load("tree-sitter-hazel.wasm"));
+        languages.set("python", Parser.Language.load("tree-sitter-python.wasm"));
 
 		parser.setLanguage(await languages.get("hazel")!);
 
