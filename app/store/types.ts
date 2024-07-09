@@ -8,7 +8,7 @@ export type State = {
     tree: Tree | undefined;
 };
 
-export const inputLanguages = ["OCaml", "Typescript"] as const;
+export const inputLanguages = ["typescript", "hazel"] as const;
 
 export type Actions = {
 	updateCodeInput: (code: string) => void;

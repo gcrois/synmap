@@ -7,7 +7,7 @@ export const storeFuncs: StateCreator<State & Actions, [], []> = (
 	get,
 ) => ({
 	codeInput: "",
-	language: "OCaml",
+	language: "hazel",
     tree: undefined,
 	updateCodeInput: (code: string) => {
 		set({ codeInput: code });

@@ -27,7 +27,6 @@ const CodeEditor: React.FC<EditorProps> = memo((props) => {
 			inherit: true,
 			rules: [],
 			colors: {
-				// pink
 				"editor.background": "#ffcccc",
 			},
 		});

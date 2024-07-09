@@ -9,19 +9,41 @@ type EditorT = EditorTypes.IStandaloneCodeEditor;
 function formatSexp(sexp: string): string {
     let formatted = "";
     let depth = 0;
+    let inWord = false; // Track if we're in the middle of a word
+
     for (let i = 0; i < sexp.length; i++) {
         const char = sexp[i];
+
         if (char === "(") {
-            formatted += "\n" + "  ".repeat(depth);
+            if (inWord) {
+                formatted += " ";
+            }
+            formatted += "\n" + "  ".repeat(depth) + char;
             depth++;
+            inWord = false; // Reset word tracking
         } else if (char === ")") {
+            if (inWord) {
+                formatted += " ";
+            }
             depth--;
-            formatted += "\n" + "  ".repeat(depth);
+            formatted += "\n" + "  ".repeat(depth) + char;
+            inWord = false; // Reset word tracking
+        } else if (char.trim() === "") {
+            // Ignore whitespace characters in the input, handle spacing internally
+            if (inWord) {
+                formatted += " ";
+                inWord = false;
+            }
         } else {
-            formatted += char;
+            if (!inWord && char !== " ") {
+                formatted += (formatted.endsWith("\n") ? "" : " ") + char;
+                inWord = true; // Start of a new word
+            } else {
+                formatted += char;
+            }
         }
     }
-    return formatted;
+    return formatted.trim();
 }
 
 const Converted: React.FC = () => {

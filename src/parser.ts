@@ -1,15 +1,16 @@
 import Parser from "web-tree-sitter";
 // import tslang from "@assets/tree-sitter-typescript.wasm?raw";
 
+const languages = new Map<string, Promise<Parser.Language>>();
+
 const parser = new Promise<Parser>((resolve) => {
 	Parser.init().then(async () => {
 		const parser = new Parser();
 
-        const languages = new Map<string, Promise<Parser.Language>>([
-            ["typescript", Parser.Language.load("tree-sitter-typescript.wasm")],
-        ]);
+        languages.set("typescript", Parser.Language.load("tree-sitter-typescript.wasm"));
+        languages.set("hazel", Parser.Language.load("tree-sitter-hazel.wasm"));
 
-		parser.setLanguage(await languages.get("typescript")!);
+		parser.setLanguage(await languages.get("hazel")!);
 
 		resolve(parser);
 	});
@@ -19,6 +20,12 @@ export async function parse(
 	code: string,
 	language: string,
 ): Promise<Parser.Tree> {
+    const p = await parser;
+
+    if ((p).getLanguage() !== await languages.get(language)) {
+        (await parser).setLanguage(await languages.get(language)!);
+    }
+
 	return (await parser).parse(code);
 }
 

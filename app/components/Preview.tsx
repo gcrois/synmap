@@ -28,11 +28,12 @@ const Preview: React.FC<PreviewProps> = () => {
     const { codeInput, language, tree, setTree } = useSlideStore();
 
     useEffect(() => {
+		console.log("Parsing with language", language);
         parse(codeInput, language).then(setTree);
     }, [codeInput, language]);
 
     return (
-        <div>
+        <div style={{ overflow: "auto", height: "100%" }}>
             <div dangerouslySetInnerHTML={{ __html: (tree !== undefined) ? treeToHTML(tree) : "No tree" }}></div>
         </div>
     );
