@@ -5,38 +5,47 @@ import { Tree, SyntaxNode } from "web-tree-sitter";
 
 const nodeToHTML = (node: SyntaxNode, depth: number = 0): string => {
 	if (!node) return "";
-    let result = `<div style="margin-left: ${depth * 20}px;">` +
-                 `<strong>Type:</strong> ${node.type}, ` +
-                 `<strong>Text:</strong> "${node.text}"</div>`;
-    if (node.childCount > 0) {
-        node.children.forEach(child => {
-            result += nodeToHTML(child, depth + 1);
-        });
-    }
-    return result;
+	let result =
+		`<div style="margin-left: ${depth * 20}px;">` +
+		`<strong>Type:</strong> ${node.type}, ` +
+		(node.childCount == 0 ? `<strong>Text:</strong> ${node.text}` : "");
+	result += "</div>";
+	if (node.childCount > 0) {
+		node.children.forEach((child) => {
+			result += nodeToHTML(child, depth + 1);
+		});
+	}
+	return result;
 };
 
 const treeToHTML = (tree: Tree | undefined): string => {
-    if (!tree) return "<p>No tree available.</p>";
-    const rootNode = tree.rootNode;
-    return nodeToHTML(rootNode);
+	if (!tree) return "<p>No tree available.</p>";
+	const rootNode = tree.rootNode;
+	return nodeToHTML(rootNode);
 };
 
 interface PreviewProps {}
 
 const Preview: React.FC<PreviewProps> = () => {
-    const { codeInput, language, tree, setTree } = useSlideStore();
+	const { codeInput, language, tree, setTree } = useSlideStore();
 
-    useEffect(() => {
-		console.log("Parsing with language", language);
-        parse(codeInput, language).then(setTree);
-    }, [codeInput, language]);
+	useEffect(() => {
+		console.log("Parsing with language", language, tree);
+		parse(codeInput, language).then(setTree);
+	}, [codeInput, language]);
 
-    return (
-        <div style={{ overflow: "auto", height: "100%" }}>
-            <div dangerouslySetInnerHTML={{ __html: (tree !== undefined) ? treeToHTML(tree) : "No tree" }}></div>
-        </div>
-    );
+	return (
+		<div style={{ overflow: "auto", height: "100%" }}>
+			<div style={{ padding: "0.5em" }}>
+				<div
+					dangerouslySetInnerHTML={{
+						__html:
+							tree !== undefined ? treeToHTML(tree) : "No tree",
+					}}
+				/>
+			</div>
+		</div>
+	);
 };
 
 export default Preview;

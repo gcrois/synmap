@@ -99,20 +99,16 @@ const App: React.FC = () => {
 			return <CodeEditor key={node.getId()} />;
 		}
 		if (component === "preview") {
-			// return <div>preview</div>
 			return <Preview />;
 		}
 		if (component === "controls") {
-			// return <div>controls</div>
 			return <Controls />;
 		}
 		if (component === "backend") {
 			return <div>backend</div>;
-			// return <Backend />;
 		}
 		if (component === "converted") {
 			return <Converted />;
-			// return <Debug />;
 		}
 	};
 

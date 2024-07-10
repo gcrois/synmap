@@ -22,6 +22,10 @@ const CodeEditor: React.FC<EditorProps> = memo((props) => {
 		setEditor(editor);
 		setMonaco(monaco);
 
+		editor.updateOptions({
+			wordWrap: "bounded",
+		});
+
 		monaco.editor.defineTheme("invalid", {
 			base: "vs",
 			inherit: true,
